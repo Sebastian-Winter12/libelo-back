@@ -1,7 +1,13 @@
 <script setup>
-import HelloWorld from "@/components/HelloWorld.vue";
+import BaseBody from "@/components/BaseBody.vue";
+import HomeNav from "@/components/HomeNav.vue";
 </script>
 
 <template>
-  <HelloWorld />
+  <BaseBody>
+    <HomeNav />
+    <div>
+      content
+    </div>
+  </BaseBody>
 </template>
