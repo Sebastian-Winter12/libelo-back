@@ -40,6 +40,8 @@ import { BookOpenCheck, Bot, CalendarDays, Goal, NotebookPen, UserRound } from "
                     </BaseCard>
                 </div>
             </BaseInfo>
+
+            <button class="w-full h-12 bg-libelo-500 rounded-xl text-white font-semibold hover:bg-libelo-600">Configuración</button>
         </div>
     </BaseBody>
 </template>
