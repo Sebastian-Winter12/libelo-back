@@ -3,6 +3,13 @@ import HomeNav from "@/components/Home/HomeNav.vue";
 import BaseBody from "@/components/BaseBody.vue";
 import BaseInfo from "@/components/BaseInfo.vue";
 import { Plus } from "lucide-vue-next";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goTo = (name) => {
+    router.push(name);
+};
 </script>
 
 <template>
@@ -17,7 +24,7 @@ import { Plus } from "lucide-vue-next";
             </div>
             <BaseInfo title="Tus materias" description="Descubre una variedad de materias y encuentra el mentor perfecto para tus necesidades educativas.">
                 <div class="grid grid-cols-2 gap-2 w-full text-white font-semibold">
-                    <div class="flex items-center justify-center w-full h-20 p-3 rounded-xl bg-red-800 uppercase">Literatura</div>
+                    <div @click="goTo('class')" class="flex items-center justify-center w-full h-20 p-3 rounded-xl bg-red-800 uppercase">Literatura</div>
                 </div>
             </BaseInfo>
         </div>
