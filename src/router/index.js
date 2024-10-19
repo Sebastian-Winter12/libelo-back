@@ -11,6 +11,11 @@ const routes = [
         name: "class",
         component: () => import("../views/ClassView.vue"),
     },
+    {
+        path: "/settings",
+        name: "settings",
+        component: () => import("../views/SettingsView.vue"),
+    },
 ];
 
 const router = createRouter({
@@ -18,4 +23,9 @@ const router = createRouter({
     routes,
 });
 
+const goTo = (name) => {
+    router.push(name);
+};
+
+export { goTo };
 export default router;
