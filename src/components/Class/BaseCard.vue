@@ -7,14 +7,15 @@ defineProps({
     color: {
         type: Boolean,
         default: true
-    }
+    },
+    icon: Object
 });
 </script>
 
 <template>
     <div class="flex flex-col p-3 h-fit rounded-xl text-neutral-700" :class="color ? 'bg-gradient-to-b from-[#D8D8D8] to-[#CECECE]' : 'border border-neutral-300'" >
         <div class="flex gap-2">
-            <slot />
+            <component :is="icon" :size="20" />
             <p class="font-bold">{{ title }}</p>
         </div>
         <p class="text-sm">{{ description }}</p>
