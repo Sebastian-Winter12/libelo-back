@@ -3,7 +3,7 @@ import BaseBody from "@/components/BaseBody.vue";
 import BaseNav from "@/components/BaseNav.vue";
 import LabelTitle from "@/components/Settings/LabelTitle.vue";
 import BaseItem from "@/components/Settings/BaseItem.vue";
-import { Book } from "lucide-vue-next";
+import { Book, BookOpenCheck, CalendarDays, Goal, Languages, LayoutDashboard, MessageSquareDot, NotebookPen } from "lucide-vue-next";
 </script>
 
 <template>
@@ -15,15 +15,15 @@ import { Book } from "lucide-vue-next";
             </LabelTitle>
             <LabelTitle label="Aprendizaje">
                 <BaseItem title="Materias" :icon="Book" />
-                <BaseItem title="Objetivos" :icon="Book" />
-                <BaseItem title="Calendario" :icon="Book" />
-                <BaseItem title="Evaluaciones" :icon="Book" />
-                <BaseItem title="Ejercicios" :icon="Book" />
+                <BaseItem title="Objetivos" :icon="Goal" />
+                <BaseItem title="Calendario" :icon="CalendarDays" />
+                <BaseItem title="Evaluaciones" :icon="BookOpenCheck" />
+                <BaseItem title="Ejercicios" :icon="NotebookPen" />
             </LabelTitle>
             <LabelTitle label="General">
-                <BaseItem title="Notificaciones" :icon="Book" />
-                <BaseItem title="Idioma" :icon="Book" />
-                <BaseItem title="Personalización" :icon="Book" />
+                <BaseItem title="Notificaciones" :icon="MessageSquareDot" />
+                <BaseItem title="Idioma" :icon="Languages" />
+                <BaseItem title="Personalización" :icon="LayoutDashboard" />
             </LabelTitle>
         </div>
     </BaseBody>

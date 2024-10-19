@@ -24,7 +24,7 @@ defineProps({
             </template>
             <template v-else>
                 <div class="flex items-center justify-center bg-neutral-200/60 size-10 rounded-lg">
-                    <component :is="icon" :size="20" />
+                    <component :is="icon" :size="24" />
                 </div>
             </template>
             <p>{{ title }}</p>
