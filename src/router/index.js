@@ -28,8 +28,8 @@ const router = createRouter({
     routes,
 });
 
-const goTo = (name) => {
-    router.push(name);
+const goTo = (path) => {
+    router.push(path);
 };
 
 export { goTo };

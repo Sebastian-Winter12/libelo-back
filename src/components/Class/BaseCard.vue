@@ -1,23 +1,31 @@
 <script setup>
+import { goTo } from '@/router';
 import { defineProps } from 'vue';
 
-defineProps({
+const props = defineProps({
     title: String,
     description: String,
     color: {
         type: Boolean,
         default: true
     },
-    icon: Object
+    icon: Object,
+    linkTo: String
 });
+
+const handleClick = () => {
+    if (props.linkTo) {
+        goTo(props.linkTo);
+    }
+};
 </script>
 
 <template>
-    <div class="flex flex-col p-3 h-fit rounded-xl text-neutral-700" :class="color ? 'bg-gradient-to-b from-[#D8D8D8] to-[#CECECE]' : 'border border-neutral-300'" >
+    <div @click="handleClick" class="flex flex-col p-3 h-fit rounded-xl text-neutral-700" :class="props.color ? 'bg-gradient-to-b from-[#D8D8D8] to-[#CECECE]' : 'border border-neutral-300'" >
         <div class="flex gap-2">
-            <component :is="icon" :size="20" />
-            <p class="font-bold">{{ title }}</p>
+            <component :is="props.icon" :size="20" />
+            <p class="font-bold">{{ props.title }}</p>
         </div>
-        <p class="text-sm">{{ description }}</p>
+        <p class="text-sm">{{ props.description }}</p>
     </div>
 </template>
