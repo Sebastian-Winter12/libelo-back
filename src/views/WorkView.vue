@@ -4,6 +4,7 @@ import BaseNav from "@/components/BaseNav.vue";
 import BaseTitle from "@/components/BaseTitle.vue";
 import ClassBanner from "@/components/ClassBanner.vue";
 import StateCard from "@/components/Work/StateCard.vue";
+import PendingCard from "@/components/Work/PendingCard.vue";
 </script>
 
 <template>
@@ -18,7 +19,8 @@ import StateCard from "@/components/Work/StateCard.vue";
                 </div>
             </BaseTitle>
             <BaseTitle title="Trabajos pendientes" description="Los trabajos están conectados con Classroom.">
-                
+                <PendingCard title="Trabajo Practico 2" date="28/06/2024 | 9:00" />
+                <PendingCard title="Introducción al Análisis Literario II" date="03/07/2024 | 11:00" />
             </BaseTitle>
         </div>
     </BaseBody>
