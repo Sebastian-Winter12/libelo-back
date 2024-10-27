@@ -9,7 +9,7 @@ const props = defineProps({
         type: Boolean,
         default: true
     },
-    icon: Object,
+    icon: Function,
     linkTo: String
 });
 

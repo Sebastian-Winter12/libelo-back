@@ -4,7 +4,7 @@ import { defineProps } from 'vue';
 
 defineProps({
     title: String,
-    icon: Object,
+    icon: Function,
     account: {
         type: Boolean,
         default: false
