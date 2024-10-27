@@ -9,7 +9,7 @@ const props = defineProps({
   },
   primary: {
     type: Boolean,
-    default: true
+    default: false
   },
   path: {
     type: String,

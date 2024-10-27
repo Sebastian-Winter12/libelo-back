@@ -1,5 +1,5 @@
 <script setup>
-
+import BaseButton from '@/components/BaseButton.vue';
 </script>
 
 <template>
@@ -239,17 +239,12 @@
         </div>
         <div class="flex flex-col justify-between p-2">
             <div class="flex flex-col items-center gap-2">
-                <h1 class="font-semibold text-2xl text-neutral-900">Bienvenido a Libelo</h1>
-                <p class="text-neutral-700 text-balance text-center">Estamos encantados de ayudarte a mejorar tus habilidades de manera sencilla y eficaz.</p>
-                <div class="flex gap-2 mt-4">
-                    <div class="size-2 bg-libelo-500 rounded-full"></div>
-                    <div class="size-2 bg-neutral-300 rounded-full"></div>
-                    <div class="size-2 bg-neutral-300 rounded-full"></div>
-                </div>
+                <h1 class="font-semibold text-2xl text-neutral-900">¡Bienvenido a Libelo!</h1>
+                <p class="text-neutral-700 text-balance text-center">Estamos encantados de ayudarte a mejorar tu aprendizaje de manera sencilla y eficaz.</p>
             </div>
             <div class="flex flex-col gap-2">
-                <button @click="goTo('/settings')" class="w-full h-12 bg-libelo-500 rounded-xl text-white font-semibold hover:bg-libelo-600">Iniciar sesión</button>
-                <button @click="goTo('/settings')" class="w-full h-12 rounded-xl text-black border border-neutral-300 bg-neutral-200 font-semibold hover:bg-neutral-300">Crear cuenta</button>
+                <BaseButton primary content="Iniciar sesión" path="/login" />
+                <BaseButton content="Crear cuenta" path="/register" />
             </div>
         </div>
     </div>
