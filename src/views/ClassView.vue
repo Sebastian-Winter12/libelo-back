@@ -4,8 +4,8 @@ import BaseNav from "@/components/BaseNav.vue";
 import BaseTitle from "@/components/BaseTitle.vue";
 import BaseCard from "@/components/Class/BaseCard.vue";
 import { BookOpenCheck, Bot, CalendarDays, Goal, NotebookPen, UserRound } from "lucide-vue-next";
-import { goTo } from "@/router/index";
 import ClassBanner from "@/components/ClassBanner.vue";
+import BaseButton from "@/components/BaseButton.vue";
 </script>
 
 <template>
@@ -29,7 +29,7 @@ import ClassBanner from "@/components/ClassBanner.vue";
                 </div>
             </BaseTitle>
 
-            <button @click="goTo('/settings')" class="w-full h-12 bg-libelo-500 rounded-xl text-white font-semibold hover:bg-libelo-600">Configuración</button>
+            <BaseButton primary content="Configuración" path="/settings" />
         </div>
     </BaseBody>
 </template>

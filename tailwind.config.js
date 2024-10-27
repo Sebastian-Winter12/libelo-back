@@ -5,6 +5,7 @@ export default {
     extend: {
       gridTemplateRows: {
         body: "60px 1fr",
+        welcome: "1.5fr 1fr",
       },
       colors: {
         libelo: {
