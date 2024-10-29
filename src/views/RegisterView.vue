@@ -8,10 +8,14 @@ import SignNav from '../components/SignAccount/SignNav.vue';
     <div class="flex flex-col justify-between min-h-full">
         <div>
             <div class="h-full p-2">
-                <SignNav title="Iniciar sesión" description="¡Bienivenido de nuevo a Libelo!" />
+                <SignNav title="Crear cuenta" description="Crea una cuenta nueva y estudia de manera eficiente." />
                 <div class="flex flex-col gap-5">
+                    <div class="grid grid-cols-2 gap-2">
+                        <BaseInput identifier="first-name" placeholder="Introduzca su nombre" label="Nombre" type="text" />
+                        <BaseInput identifier="last-name" placeholder="Introduzca su apellido" label="Apellido" type="text" />
+                    </div>
                     <BaseInput identifier="email" placeholder="Introduzca su correo electrónico" label="Correo electrónico" type="text" />
-                    <BaseInput identifier="password" placeholder="Introduzca su contraseña" label="Contraseña" type="password" password />
+                    <BaseInput identifier="password" placeholder="Introduzca su contraseña" label="Contraseña" type="password" />
                     <div class="inline-flex items-center">
                         <label class="flex items-center cursor-pointer relative" for="check-2">
                             <input type="checkbox" checked class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded border border-neutral-300 checked:bg-libelo-500 checked:border-libelo-500" id="check-2" />
@@ -24,7 +28,7 @@ import SignNav from '../components/SignAccount/SignNav.vue';
                         <label class="cursor-pointer ml-2 text-neutral-700 text-sm" for="check-2">Mantener la sesión iniciada</label>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <BaseButton primary content="Iniciar sesión" path="/home" />
+                        <BaseButton primary content="Crear cuenta" path="/home" />
                         <div class="grid grid-cols-[1fr_auto_1fr] items-center justify-center gap-2 h-12 w-full">
                             <hr class="w-full border-neutral-300" />
                             <span class="text-neutral-700 text-sm text-center">o inicia sesión con</span>
@@ -45,7 +49,7 @@ import SignNav from '../components/SignAccount/SignNav.vue';
         </div>
         <div class="p-2">
             <div class="flex items-center justify-center h-12 w-full">
-                <p class="text-neutral-700">¿No tienes una cuenta? <router-link to="/register" class="text-libelo-500 font-semibold ml-1">Regístrate ahora</router-link></p>
+                <p class="text-neutral-700">¿Ya tienes una cuenta? <router-link to="/login" class="text-libelo-500 font-semibold ml-1">Inicia sesión</router-link></p>
             </div>
         </div>
     </div>
