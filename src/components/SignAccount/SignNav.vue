@@ -13,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-    <div @click="goBack" class="size-12 flex items-center justify-center border border-neutral-300 rounded-xl">
+    <div @click="goBack" class="size-12 flex items-center justify-center border border-neutral-300 rounded-xl hover:bg-neutral-200">
         <ArrowLeft :size="20" />
     </div>
     <div class="flex flex-col mt-2 mb-6">
