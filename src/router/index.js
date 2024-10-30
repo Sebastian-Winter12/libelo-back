@@ -17,7 +17,7 @@ const routes = [
         component: () => import("../views/WelcomeView.vue"),
     },
     {
-        path: "/home",
+        path: "/",
         name: "home",
         component: () => import("../views/HomeView.vue"),
     },
@@ -25,6 +25,11 @@ const routes = [
         path: "/class",
         name: "class",
         component: () => import("../views/ClassView.vue"),
+    },
+    {
+        path: "/chat/fast",
+        name: "fast-chat",
+        component: () => import("../views/FastChatView.vue"),
     },
     {
         path: "/work",
