@@ -8,7 +8,7 @@ import SignNav from '../components/SignAccount/SignNav.vue';
     <div class="flex flex-col justify-between min-h-full">
         <div>
             <div class="h-full p-2">
-                <SignNav title="Iniciar sesión" description="¡Bienivenido de nuevo a Libelo!" />
+                <SignNav title="Iniciar sesión" description="¡Bienvenido de nuevo a Libelo!" />
                 <div class="flex flex-col gap-5">
                     <BaseInput identifier="email" placeholder="Introduzca su correo electrónico" label="Correo electrónico" type="text" />
                     <BaseInput identifier="password" placeholder="Introduzca su contraseña" label="Contraseña" type="password" password />
