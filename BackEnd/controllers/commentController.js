@@ -2,16 +2,16 @@ const Comment = require("../models/commentsModels");
 const User = require("../models/usersModels");
 
 const createComment = async (req, res) => {
-    const { body, likes, userId, postId } = req.body;
+    const { body, likes, userId, subjectId } = req.body;
 
-    if (!body || !userId || !postId) {
+    if (!body || !userId || !subjectId) {
         res.status(400).json({ msg: "Faltan paramátros obligatorios", data: { body, userId } });
     }
 
     try {
         const user = await User.findById(userId);
 
-        const newComment = new Comment({ body, likes, user: user._id, post: postId });
+        const newComment = new Comment({ body, likes, user: user._id, subject: subjectId });
         await newComment.save();
         res.status(200).json({ msg: "Comentario creado", data: newComment });
     } catch (error) {
@@ -25,14 +25,14 @@ const getComments = async (req, res) => {
     res.status(200).json({ msg: "Ok", data: comments });
 };
 
-const getCommentsByPostId = async (req, res) => {
+const getCommentsBySubjectId = async (req, res) => {
     const { id } = req.params;
     try {
-        const comments = await Comment.find({ post: id }).populate("user");
+        const comments = await Comment.find({ subject: id }).populate("user");
         if (comments.length > 0) {
             res.status(200).json({ msg: "success", data: comments });
         } else {
-            res.status(404).json({ msg: "No se encontró ningún comentario para ese post ", data: {} });
+            res.status(404).json({ msg: "No se encontró ningún comentario para ese subject ", data: {} });
         }
     }
     catch (error) {
@@ -87,4 +87,4 @@ const updateCommentById = async (req, res) => {
     }
 };
 
-module.exports = { createComment, getComments, getCommentsByPostId, getCommentsByUserId, deleteCommentById, updateCommentById };
+module.exports = { createComment, getComments, getCommentsBySubjectId, getCommentsByUserId, deleteCommentById, updateCommentById };

@@ -3,20 +3,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // Creo el Esquema
 const userSchema = new Schema({
-    username: String,
-    created: {
-        type: Date,
-        default: Date.now
-    },
     username: {
         type: String,
         required: true,
         unique: true
     },
+    created: {
+        type: Date,
+        default: Date.now
+    },
     password: {
         type: String,
         required: true
     },
+    subjects: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Subject',
+        required: true
+    }]
 });
 
 const User = mongoose.model('User', userSchema);
@@ -25,5 +29,6 @@ module.exports = User;
 
 // {
 //     "username": "",
-//     "password": ""
+//     "password": "",
+//     "subjects": [""]
 // }

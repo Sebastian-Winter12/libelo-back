@@ -1,10 +1,10 @@
 const userRouter = require('./userRouter');
-const postRouter = require('./postRouter');
+const subjectRouter = require('./subjectRouter');
 const commentRouter = require('./commentRouter');
 
-function routerAPI( app){
+function routerAPI(app) {
     app.use('/api/users', userRouter);
-    app.use('/api/posts', postRouter);
+    app.use('/api/subjects', subjectRouter); // Cambiado de 'subject' a 'subjects'
     app.use('/api/comments', commentRouter);
 }
 

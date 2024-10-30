@@ -11,9 +11,9 @@ const commentSchema = new Schema({
         type: Number,
         default: 0
     },
-    post: {
+    subject: {
         type: Schema.Types.ObjectId,
-        ref: 'Post',
+        ref: 'Subject',
         required: true
     },
     user: {
@@ -30,5 +30,5 @@ module.exports = Comment;
 //     "body": "",
 //     "likes": ,
 //     "userId": "",
-//     "postId": ""
+//     "subjectId": ""
 // }

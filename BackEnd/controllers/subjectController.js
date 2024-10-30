@@ -1,5 +1,7 @@
 const User = require('../models/usersModels');
+const Subject = require('../models/subjectsModels');
 
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
@@ -9,25 +11,27 @@ const secretKey = process.env.SECRETKEY;
 const salt = 10;
 
 const createUser = async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password } = req.body; // Ahora no obtenemos subjects aquí
 
+    // Verifica la validez de los parámetros de entrada
     if (!username || !password) {
-        res.status(400).json({ msg: 'Faltan paramátros obligatorios', data: { username, password } })
+        return res.status(400).json({ msg: 'Faltan parámetros obligatorios', data: { username, password } });
     }
-
-    const passwordHash = await bcrypt.hash(password, salt);
 
     try {
-        // Creo una instancia del modelo
-        const newUser = new User({ username, password: passwordHash })
+        const passwordHash = await bcrypt.hash(password, salt);
+
+        // Crea el usuario sin las materias
+        const newUser = new User({ username, password: passwordHash, subjects: [] });
         await newUser.save();
-        res.status(200).json({ msg: 'Usuario creado', data: newUser })
+
+        res.status(200).json({ msg: 'Usuario creado', data: newUser });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Hubo un error en el servidor', data: {} })
+        res.status(500).json({ msg: 'Hubo un error en el servidor', data: {} });
     }
+};
 
-}
 
 const login = async (req, res) => {
     const { username, password } = req.body;
@@ -52,10 +56,9 @@ const login = async (req, res) => {
     }
 };
 
-
 const getUsers = async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().populate('subject'); // Población del campo subject
         res.status(200).json({ msg: 'Usuarios obtenidos', data: users });
     } catch (error) {
         console.error(error);
@@ -63,11 +66,10 @@ const getUsers = async (req, res) => {
     }
 };
 
-
 const getUsersById = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await User.findById(id);
+        const user = await User.findById(id).populate('subject'); // Población del campo subject
         if (!user) {
             return res.status(404).json({ msg: 'Usuario no encontrado' });
         }
@@ -86,30 +88,56 @@ const deleteUserById = async (req, res) => {
             res.status(200).json({ msg: "success", data: user });
         } else {
             res.status(404).json({ msg: "No se encontró el usuario ", data: {} });
-
         }
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Hubo un error en el servidor', data: {} })
+        res.status(500).json({ msg: 'Hubo un error en el servidor', data: {} });
     }
-}
+};
+
 const updateUserById = async (req, res) => {
     const { id } = req.params;
-    const { username, password } = req.body;
+    const { username, password, subjects } = req.body;
 
     try {
-        const user = await User.findByIdAndUpdate(id, { username, password }, { new: true });
-        if (user) {
-            res.status(200).json({ msg: "success", data: user });
-        } else {
-            res.status(404).json({ msg: "No se encontró el usuario ", data: {} });
-
+        const updateData = {};
+        
+        if (username) {
+            updateData.username = username;
         }
+
+        if (password) {
+            const passwordHash = await bcrypt.hash(password, salt);
+            updateData.password = passwordHash;
+        }
+
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ msg: "No se encontró el usuario", data: {} });
+        }
+
+        if (subjects && Array.isArray(subjects)) {
+            const subjectsExist = await Subject.find({ _id: { $in: subjects } });
+            if (subjectsExist.length !== subjects.length) {
+                return res.status(404).json({ msg: 'Una o más materias especificadas no existen' });
+            }
+
+            // Combina las materias existentes con las nuevas
+            const updatedSubjects = Array.from(new Set([...user.subjects, ...subjects]));
+            updateData.subjects = updatedSubjects;
+        }
+
+        // Actualiza el usuario con la nueva información
+        const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
+        res.status(200).json({ msg: "Usuario actualizado con éxito", data: updatedUser });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Hubo un error en el servidor', data: {} })
+        res.status(500).json({ msg: 'Hubo un error en el servidor', data: {} });
     }
-}
+};
+
+
+
 
 
 module.exports = { createUser, getUsers, getUsersById, deleteUserById, updateUserById, login };
