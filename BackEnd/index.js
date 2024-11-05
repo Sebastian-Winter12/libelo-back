@@ -2,6 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const routerAPI = require('./routes'); // Asegúrate de que este archivo exista y esté configurado correctamente
+const cors = require('cors');
+const app = express();
+
+app.use(cors()); // Permite todas las solicitudes de todos los orígenes. Personalízalo si deseas mayor control.
+
 
 // Accedemos a la variable de Entorno
 const port = process.env.PORT || 3000; // Puedes establecer un puerto predeterminado
@@ -19,7 +24,7 @@ db.once('open', () => {
     console.log('Conexión correcta a la base de datos');
 });
 
-const app = express();
+
 
 // Middleware para parsear el JSON
 app.use(express.json());
