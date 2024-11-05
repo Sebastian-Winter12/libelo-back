@@ -7,27 +7,23 @@ import { goTo } from "@/router/index";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const subjects = ref([]); // Estado para guardar las materias
+const subjects = ref([]);
 
-// Función para obtener las materias desde la API
 const fetchSubjects = async () => {
     try {
-        const response = await axios.get("http://localhost:3000/api/subjects"); // URL de tu API de materias
-        subjects.value = response.data.data; // Asigna las materias al estado
+        const response = await axios.get("http://localhost:3000/api/subjects");
+        subjects.value = response.data.data;
     } catch (error) {
         console.error("Error al obtener las materias:", error);
     }
 };
 
-onMounted(async () => {
-    try {
-        const response = await axios.get('http://localhost:3000/api/subjects');
-        subjects.value = response.data;
-    } catch (error) {
-        console.error('Error fetching subjects:', error);
-    }
+// Llama a la función fetchSubjects cuando el componente se monta
+onMounted(() => {
+    fetchSubjects();
 });
 </script>
+
 
 
 <template>
