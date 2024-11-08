@@ -25,6 +25,28 @@ db.once('open', () => {
 });
 
 
+// Ruta para iniciar el proceso de autenticación con Google
+app.get('/google/auth', (req, res) => {
+    const authUrl = getAuthUrl();
+    res.redirect(authUrl);
+});
+
+// Ruta de redirección de Google después de autenticarse
+app.get('/google/callback', async (req, res) => {
+    const code = req.query.code;
+
+    try {
+        const { tokens } = await oauth2Client.getToken(code);
+        oauth2Client.setCredentials(tokens);
+        // Puedes guardar estos tokens si necesitas hacer más peticiones en nombre del usuario
+        res.redirect('http://localhost:8080/home'); // Redirige al usuario de vuelta a tu frontend
+    } catch (error) {
+        console.error('Error al obtener el token de acceso:', error);
+        res.status(500).send('Error al autenticarse con Google');
+    }
+});
+
+
 
 // Middleware para parsear el JSON
 app.use(express.json());
