@@ -1,14 +1,39 @@
 <script setup>
 import BaseNav from '../components/BaseNav.vue';
 import BaseBody from '../components/BaseBody.vue';
-import { SendHorizontalIcon } from 'lucide-vue-next';
+import { SendHorizontalIcon, Bot } from 'lucide-vue-next';
 </script>
 
 <template>
-    <BaseBody>
+    <BaseBody class="max-h-screen">
         <BaseNav title="Chat rápido" />
-        <div class="flex flex-col justify-between gap-10 p-2">
-            <div class="bg-slate-700 w-full h-full"></div>
+        <div class="flex flex-col justify-between gap-10 p-2 pt-0 max-h-[calc(100vh-60px)]">
+            <div class="w-full h-full overflow-scroll">
+                <div class="flex flex-col justify-end gap-5 h-full">
+                    <div class="flex gap-2">
+                        <div class="flex items-center justify-center size-9 bg-orange-600 rounded-full text-white flex-shrink-0">
+                            <Bot :size="20" />
+                        </div>
+                        <div class="flex flex-col w-full gap-2">
+                            <span class="text-sm text-orange-600 font-semibold">Inteligencia Artificial</span>
+                            <div class="bg-orange-600/40 p-2 rounded-xl w-fit">
+                                <p class="text-sm">¡Hola! Bienvenido al chat de Inteligencia Artificial especializado en Geografía. ¿En qué puedo asistirte hoy?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <div class="flex items-center justify-center size-9 rounded-full text-white flex-shrink-0">
+                            <img src="https://avatar.iran.liara.run/public/2" alt="Imagen de perfil">
+                        </div>
+                        <div class="flex flex-col w-full gap-2">
+                            <span class="text-sm text-libelo-500 font-semibold">Mariano Buranits</span>
+                            <div class="bg-libelo-500 p-2 rounded-xl w-fit">
+                                <p class="text-sm text-white">¿Cuál es la capital de Argentina?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="flex flex-col gap-3 w-full">
                 <div class="flex justify-center items-center w-full py-2 bg-white rounded-full">
                     <span class="text-sm text-neutral-700">Estás en un chat rápido de (materia)</span>
