@@ -8,8 +8,8 @@ import { SendHorizontalIcon, Bot } from 'lucide-vue-next';
     <BaseBody class="max-h-screen">
         <BaseNav title="Chat rápido" />
         <div class="flex flex-col justify-between gap-10 p-2 pt-0 max-h-[calc(100vh-60px)]">
-            <div class="w-full h-full overflow-scroll">
-                <div class="flex flex-col justify-end gap-5 h-full">
+            <div class="flex flex-col items-end overflow-y-auto">
+                <div class="flex flex-col justify-end gap-5 pt-2">
                     <div class="flex gap-2">
                         <div class="flex items-center justify-center size-9 bg-orange-600 rounded-full text-white flex-shrink-0">
                             <Bot :size="20" />
@@ -17,7 +17,7 @@ import { SendHorizontalIcon, Bot } from 'lucide-vue-next';
                         <div class="flex flex-col w-full gap-1">
                             <span class="text-sm text-orange-600 font-semibold">Inteligencia Artificial</span>
                             <div class="bg-orange-600/40 p-2 rounded-xl w-fit">
-                                <p class="text-sm">¡Hola! Bienvenido al chat de Inteligencia Artificial especializado en Geografía. ¿En qué puedo asistirte hoy?</p>
+                                <p class="text-sm">¡Hola! Bienvenido al chat de Inteligencia Artificial especializado en (materia). ¿En qué puedo asistirte hoy?</p>
                             </div>
                         </div>
                     </div>
