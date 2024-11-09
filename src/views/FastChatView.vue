@@ -32,6 +32,17 @@ import { SendHorizontalIcon, Bot } from 'lucide-vue-next';
                             </div>
                         </div>
                     </div>
+                    <div class="flex gap-2">
+                        <div class="flex items-center justify-center size-9 bg-orange-600 rounded-full text-white flex-shrink-0">
+                            <Bot :size="20" />
+                        </div>
+                        <div class="flex flex-col w-full gap-2">
+                            <span class="text-sm text-orange-600 font-semibold">Inteligencia Artificial</span>
+                            <div class="bg-orange-600/40 p-2 rounded-xl w-fit">
+                                <p class="text-sm">La capital de Argentina es Buenos Aires y se encuentra en la región central-este del país, en la costa occidental del Río de la Plata.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="flex flex-col gap-3 w-full">
