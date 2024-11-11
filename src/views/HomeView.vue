@@ -9,7 +9,6 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const showModal = ref(false);
-
 const subjects = ref([]);
 
 const fetchSubjects = async () => {
@@ -18,6 +17,16 @@ const fetchSubjects = async () => {
         subjects.value = response.data.data;
     } catch (error) {
         console.error("Error al obtener las materias:", error);
+    }
+};
+
+const addSubject = async (subjectName) => {
+    try {
+        const response = await axios.post("http://localhost:3000/api/subjects", { name: subjectName, professor: null });
+        subjects.value.push(response.data.data);
+        showModal.value = false;
+    } catch (error) {
+        console.error("Error al agregar la materia:", error);
     }
 };
 
@@ -47,7 +56,7 @@ onMounted(() => {
         </button>
 
         <Transition enter-active-class="transition ease-out duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100" leave-active-class="transition ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
-            <HomeModal :show-modal="showModal" @close="showModal = false" />
+            <HomeModal :show-modal="showModal" @close="showModal = false" @add-subject="addSubject" />
         </Transition>
     </BaseBody>
 </template>
