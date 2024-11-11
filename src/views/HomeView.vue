@@ -5,9 +5,25 @@ import BaseTitle from "@/components/BaseTitle.vue";
 import HomeModal from "@/components/Home/HomeModal.vue";
 import { Plus } from "lucide-vue-next";
 import { goTo } from "@/router/index";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
 const showModal = ref(false);
+
+const subjects = ref([]);
+
+const fetchSubjects = async () => {
+    try {
+        const response = await axios.get("http://localhost:3000/api/subjects");
+        subjects.value = response.data.data;
+    } catch (error) {
+        console.error("Error al obtener las materias:", error);
+    }
+};
+
+onMounted(() => {
+    fetchSubjects();
+});
 </script>
 
 <template>
@@ -22,7 +38,7 @@ const showModal = ref(false);
             </div>
             <BaseTitle title="Tus materias" description="Descubre una variedad de materias y encuentra el mentor perfecto para tus necesidades educativas.">
                 <div class="grid grid-cols-2 gap-2 w-full text-white font-semibold">
-                    <div @click="goTo('/class')" class="flex items-center justify-center w-full h-20 p-3 rounded-xl bg-red-800 uppercase">Literatura</div>
+                    <div v-for="subject in subjects" :key="subject._id" @click="goTo(`/class/${subject._id}`)" class="flex items-center justify-center w-full h-20 p-3 rounded-xl bg-red-800 uppercase">{{ subject.name }}</div>
                 </div>
             </BaseTitle>
         </div>
