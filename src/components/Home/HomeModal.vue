@@ -30,7 +30,7 @@ const handleAddSubject = () => {
 </script>
 
 <template>
-    <div v-if="props.showModal" class="fixed inset-0 flex items-end justify-center bg-black bg-opacity-60 z-50" @click="handleOverlayClick">
+    <div v-if="props.showModal" class="fixed inset-0 flex items-end justify-center bg-black bg-opacity-60 z-50 max-w-mobile" @click="handleOverlayClick">
         <div class="bg-white p-2 rounded-t-xl w-full">
             <div class="flex justify-between items-center py-2">
                 <p class="text-lg font-semibold">Nueva materia</p>

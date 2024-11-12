@@ -20,6 +20,9 @@ export default {
           800: '#051837',
           900: '#040d1e',
         }
+      },
+      maxWidth: {
+        "mobile": "425px",
       }
     },
   },
