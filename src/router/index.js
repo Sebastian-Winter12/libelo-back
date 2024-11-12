@@ -27,14 +27,19 @@ const routes = [
         component: () => import("../views/ClassView.vue"),
     },
     {
-        path: "/chat/fast",
+        path: "/class/chat/fast",
         name: "fast-chat",
         component: () => import("../views/FastChatView.vue"),
     },
     {
-        path: "/work",
+        path: "/class/work",
         name: "work",
         component: () => import("../views/WorkView.vue"),
+    },
+    {
+        path: "/class/calendar",
+        name: "calendar",
+        component: () => import("../views/CalendarView.vue"),
     },
     {
         path: "/settings",

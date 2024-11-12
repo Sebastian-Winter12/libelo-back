@@ -15,7 +15,7 @@ import BaseButton from "@/components/BaseButton.vue";
             <ClassBanner />
             <BaseTitle title="Opciones de chat" description="Elige entre asistencia inmediata de IA o asesoramiento experto de mentores.">
                 <div class="grid grid-cols-2 gap-2">
-                    <BaseCard link-to="chat/fast" title="Chat rápido" description="Realiza una consulta instantánea." :icon="Bot" />
+                    <BaseCard link-to="/class/chat/fast" title="Chat rápido" description="Realiza una consulta instantánea." :icon="Bot" />
                     <BaseCard title="Chat profesional" description="Habla con un experto y resuelve tus dudas." :icon="UserRound" />
                 </div>
             </BaseTitle>
@@ -23,8 +23,8 @@ import BaseButton from "@/components/BaseButton.vue";
             <BaseTitle title="Progreso y planificación" description="Gestiona tus sesiones, evalúa tu avance y mejora con ejercicios prácticos.">
                 <div class="grid grid-cols-2 gap-2">
                     <BaseCard title="Objetivos" description="Establece y sigue tus metas de aprendizaje." :color="false" :icon="Goal" />
-                    <BaseCard title="Calendario" description="Planifica y agenda tus próximas sesiones." :color="false" :icon="CalendarDays" />
-                    <BaseCard link-to="work" title="Trabajos" description="Revisa y evalúa tu progreso académico." :color="false" :icon="BookOpenCheck" />
+                    <BaseCard link-to="/class/calendar" title="Calendario" description="Planifica y agenda tus próximas sesiones." :color="false" :icon="CalendarDays" />
+                    <BaseCard link-to="/class/work" title="Trabajos" description="Revisa y evalúa tu progreso académico." :color="false" :icon="BookOpenCheck" />
                     <BaseCard title="Ejercicios" description="Practica con ejercicios y mejora tus habilidades." :color="false" :icon="NotebookPen" />
                 </div>
             </BaseTitle>
