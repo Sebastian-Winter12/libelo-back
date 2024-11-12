@@ -1,14 +1,7 @@
-const User = require('../models/usersModels');
 const Subject = require('../models/subjectsModels');
 
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();
-
-const secretKey = process.env.SECRETKEY;
-const salt = 10;
 
 const getAllSubjects = async (req, res) => {
     try {
@@ -21,10 +14,10 @@ const getAllSubjects = async (req, res) => {
 };
 
 const createSubject = async (req, res) => {
-    const { name, subject, professor, year } = req.body;
+    const { name, professor } = req.body;
 
     try {
-        const newSubject = new Subject({ name, subject, professor, year });
+        const newSubject = new Subject({ name, professor });
         await newSubject.save();
         res.status(201).json({ msg: 'Materia creada', data: newSubject });
     } catch (error) {
@@ -50,10 +43,10 @@ const getSubjectById = async (req, res) => {
 
 const updateSubjectById = async (req, res) => {
     const { id } = req.params;
-    const { name, subject, professor, year } = req.body;
+    const { name, professor } = req.body;
 
     try {
-        const updatedSubject = await Subject.findByIdAndUpdate(id, { name, subject, professor, year }, { new: true });
+        const updatedSubject = await Subject.findByIdAndUpdate(id, { name, professor }, { new: true });
         if (!updatedSubject) {
             return res.status(404).json({ msg: 'Materia no encontrada', data: {} });
         }
