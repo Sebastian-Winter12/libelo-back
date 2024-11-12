@@ -7,9 +7,8 @@ const {
     getSubjectById,
     updateSubjectById,
     deleteSubjectById
-} = require('../controllers/subjectsController'); // Asegúrate de que esta importación esté correcta
+} = require('../controllers/subjectController');
 
-// Definición de rutas
 router.get('/', getAllSubjects);
 router.post('/', createSubject);
 router.get('/:id', getSubjectById);

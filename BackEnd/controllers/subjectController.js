@@ -1,143 +1,76 @@
-const User = require('../models/usersModels');
 const Subject = require('../models/subjectsModels');
 
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const secretKey = process.env.SECRETKEY;
-const salt = 10;
-
-const createUser = async (req, res) => {
-    const { username, password } = req.body; // Ahora no obtenemos subjects aquí
-
-    // Verifica la validez de los parámetros de entrada
-    if (!username || !password) {
-        return res.status(400).json({ msg: 'Faltan parámetros obligatorios', data: { username, password } });
-    }
-
+const getAllSubjects = async (req, res) => {
     try {
-        const passwordHash = await bcrypt.hash(password, salt);
-
-        // Crea el usuario sin las materias
-        const newUser = new User({ username, password: passwordHash, subjects: [] });
-        await newUser.save();
-
-        res.status(200).json({ msg: 'Usuario creado', data: newUser });
+        const subjects = await Subject.find();
+        res.status(200).json({ msg: 'Materias obtenidas', data: subjects });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Hubo un error en el servidor', data: {} });
+        res.status(500).json({ msg: 'Error al obtener materias', data: {} });
     }
 };
 
-
-const login = async (req, res) => {
-    const { username, password } = req.body;
+const createSubject = async (req, res) => {
+    const { name, professor } = req.body;
 
     try {
-        const user = await User.findOne({ username });
-        if (!user) {
-            return res.status(401).json({ msg: 'El usuario no existe' });
-        }
-
-        const passwordOk = await bcrypt.compare(password, user.password);
-        if (!passwordOk) {
-            return res.status(401).json({ msg: 'Contraseña incorrecta' });
-        }
-
-        const token = jwt.sign({ userId: user._id, username: user.username }, secretKey, { expiresIn: '1h' });
-
-        res.status(200).json({ msg: 'Inicio de sesión exitoso', token });
+        const newSubject = new Subject({ name, professor });
+        await newSubject.save();
+        res.status(201).json({ msg: 'Materia creada', data: newSubject });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Error al iniciar sesión', error: error.message });
+        res.status(500).json({ msg: 'Error al crear la materia', data: {} });
     }
 };
 
-const getUsers = async (req, res) => {
-    try {
-        const users = await User.find().populate('subject'); // Población del campo subject
-        res.status(200).json({ msg: 'Usuarios obtenidos', data: users });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ msg: 'Error al obtener usuarios', error: error.message });
-    }
-};
-
-const getUsersById = async (req, res) => {
+const getSubjectById = async (req, res) => {
     const { id } = req.params;
+
     try {
-        const user = await User.findById(id).populate('subject'); // Población del campo subject
-        if (!user) {
-            return res.status(404).json({ msg: 'Usuario no encontrado' });
+        const subject = await Subject.findById(id);
+        if (!subject) {
+            return res.status(404).json({ msg: 'Materia no encontrada', data: {} });
         }
-        res.status(200).json({ msg: 'Usuario obtenido', data: user });
+        res.status(200).json({ msg: 'Materia obtenida', data: subject });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Error al obtener el usuario', error: error.message });
+        res.status(500).json({ msg: 'Error al obtener la materia', data: {} });
     }
 };
 
-const deleteUserById = async (req, res) => {
+const updateSubjectById = async (req, res) => {
     const { id } = req.params;
+    const { name, professor } = req.body;
+
     try {
-        const user = await User.findByIdAndDelete(id);
-        if (user) {
-            res.status(200).json({ msg: "success", data: user });
-        } else {
-            res.status(404).json({ msg: "No se encontró el usuario ", data: {} });
+        const updatedSubject = await Subject.findByIdAndUpdate(id, { name, professor }, { new: true });
+        if (!updatedSubject) {
+            return res.status(404).json({ msg: 'Materia no encontrada', data: {} });
         }
+        res.status(200).json({ msg: 'Materia actualizada', data: updatedSubject });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Hubo un error en el servidor', data: {} });
+        res.status(500).json({ msg: 'Error al actualizar la materia', data: {} });
     }
 };
 
-const updateUserById = async (req, res) => {
+const deleteSubjectById = async (req, res) => {
     const { id } = req.params;
-    const { username, password, subjects } = req.body;
 
     try {
-        const updateData = {};
-        
-        if (username) {
-            updateData.username = username;
+        const deletedSubject = await Subject.findByIdAndDelete(id);
+        if (!deletedSubject) {
+            return res.status(404).json({ msg: 'Materia no encontrada', data: {} });
         }
-
-        if (password) {
-            const passwordHash = await bcrypt.hash(password, salt);
-            updateData.password = passwordHash;
-        }
-
-        const user = await User.findById(id);
-        if (!user) {
-            return res.status(404).json({ msg: "No se encontró el usuario", data: {} });
-        }
-
-        if (subjects && Array.isArray(subjects)) {
-            const subjectsExist = await Subject.find({ _id: { $in: subjects } });
-            if (subjectsExist.length !== subjects.length) {
-                return res.status(404).json({ msg: 'Una o más materias especificadas no existen' });
-            }
-
-            // Combina las materias existentes con las nuevas
-            const updatedSubjects = Array.from(new Set([...user.subjects, ...subjects]));
-            updateData.subjects = updatedSubjects;
-        }
-
-        // Actualiza el usuario con la nueva información
-        const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
-        res.status(200).json({ msg: "Usuario actualizado con éxito", data: updatedUser });
+        res.status(200).json({ msg: 'Materia eliminada', data: deletedSubject });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Hubo un error en el servidor', data: {} });
+        res.status(500).json({ msg: 'Error al eliminar la materia', data: {} });
     }
 };
 
-
-
-
-
-module.exports = { createUser, getUsers, getUsersById, deleteUserById, updateUserById, login };
+// Exportación de funciones
+module.exports = { getAllSubjects, createSubject, getSubjectById, updateSubjectById, deleteSubjectById };

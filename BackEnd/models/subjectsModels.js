@@ -7,26 +7,16 @@ const subjectSchema = new Schema({
         type: String,
         required: true
     },
-    subject: {
-        type: String,
-        required: true
-    },
     professor: {
         type: String,
-        required: true
+        required: false
     },
-    year: {
-        type: Number,
-        default: 0
-    }
 });
 
 const Subject = mongoose.model('Subject', subjectSchema);
 module.exports = Subject;
 
 // {
-//     "name": "",
 //     "subject": "",
-//     "professor": "",
-//     "year": 
+//     "professor": ""
 // }
